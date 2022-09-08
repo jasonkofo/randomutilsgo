@@ -40,3 +40,26 @@ func TestIsEmail(t *testing.T) {
 		fmt.Printf("PASS: Email %s expected with validity %t\n", entry.email, entry.ExpectedValue)
 	}
 }
+
+func TestIsSimpleString(t *testing.T) {
+	emails := []struct {
+		value         string
+		ExpectedValue bool
+	}{
+		{"jason@gmail.com", false},
+		{"1234567890", true},
+		{"abcdefghijklmnopqrstuvwxyz", true},
+		{"ABCDEFGHIJKLMNOPQRSTUVWXYZ", true},
+		{"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890", true},
+		{"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567 890", false},
+		{"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi_jklmnopqrstuvwxyz1234567890", true},
+		{"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi_ jklmnopqrstuvwxyz1234567890", false},
+	}
+
+	for _, entry := range emails {
+		if IsSimpleString(entry.value) != entry.ExpectedValue {
+			t.Errorf("FAIL: String %s expected with validity %t\n", entry.value, entry.ExpectedValue)
+		}
+		fmt.Printf("PASS: String %s expected with validity %t\n", entry.value, entry.ExpectedValue)
+	}
+}

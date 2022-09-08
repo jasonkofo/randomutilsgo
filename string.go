@@ -53,7 +53,18 @@ func GenerateRandomString(length int) string {
 	return str
 }
 
+// IsEmail lets us know whether the supplied string is an email field that is
+// alphanumeric, i.e. contains uppercase letters, lower case letters, numbers
+// and underscores
 func IsEmail(email string) bool {
 	re := regexp.MustCompile(`^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$`)
 	return re.Match([]byte(email))
+}
+
+// IsSimpleString lets us know whether the supplied string is a simple string
+// that is alphanumeric, i.e. contains uppercase letters, lower case letters,
+// numbers and underscores
+func IsSimpleString(str string) bool {
+	re := regexp.MustCompile("^[a-zA-Z0-9_]*$")
+	return re.Match([]byte(str))
 }
