@@ -3,6 +3,8 @@ package randomutilsgo
 import (
 	"math"
 	"math/rand"
+	"regexp"
+	"time"
 )
 
 var upperCaseRune []rune = []rune{
@@ -33,6 +35,7 @@ func floorAndMinimum(x int, limit int) int {
 }
 
 func randomIntegerInBounds(max int) int {
+	rand.Seed(time.Now().UnixNano())
 	return floorAndMinimum(rand.Intn(max), max-1)
 }
 
@@ -48,4 +51,9 @@ func GenerateRandomString(length int) string {
 		str += string(runeOfRunes[jdx][idx])
 	}
 	return str
+}
+
+func IsEmail(email string) bool {
+	re := regexp.MustCompile(`^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$`)
+	return re.Match([]byte(email))
 }
