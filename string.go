@@ -53,6 +53,25 @@ func GenerateRandomString(length int) string {
 	return str
 }
 
+func GenerateRandomStringForUseAsPassword() string {
+	str := ""
+	uci := randomIntegerInBounds(len(upperCaseRune))
+	str += string(upperCaseRune[uci])
+	for i := 0; i < 5; i++ {
+		lci := randomIntegerInBounds(len(lowerCaseRune))
+		str += string(lowerCaseRune[lci])
+	}
+	for i := 0; i < 2; i++ {
+		sci := randomIntegerInBounds(len(symbolRune))
+		str += string(symbolRune[sci])
+	}
+	for i := 0; i < 4; i++ {
+		nci := randomIntegerInBounds(len(numberRune))
+		str += string(numberRune[nci])
+	}
+	return str
+}
+
 // IsEmail lets us know whether the supplied string is an email field that is
 // alphanumeric, i.e. contains uppercase letters, lower case letters, numbers
 // and underscores
